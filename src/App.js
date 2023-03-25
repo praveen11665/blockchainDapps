@@ -15,7 +15,7 @@ import { faBitcoinSign } from '@fortawesome/free-solid-svg-icons';
 
 function App() {
   const [loading, setLoading] = useState(false);
-  const [navContent, setNavContent] = useState(1);
+  const [navContent, setNavContent] = useState(1); 
 
   const showDeployer = () => {
     setNavContent(1)
@@ -25,20 +25,48 @@ function App() {
   }
   const showHideLoader = (value) => {
     setLoading(value)
-  } 
+  }
 
-  if(loading) {
+  const ContractButtonList = () => {
+    let buttonList = [
+      {"name": "Bridge"},
+      {"name": "ERC20" },
+      {"name": "ERC721"},
+      {"name": "ERC1155"},
+      {"name": "Game NFTs"},
+      {"name": "Metaverse Land_NFTs"},
+      {"name": "NFT Auction"},
+      {"name": "NFT Borrowing"},
+      {"name": "NFT Flashloan"},
+      {"name": "NFT Leanding"},
+      {"name": "NFT Loan"},
+      {"name": "NFT Storage"},
+      {"name": "NFT Marketplace"},
+      {"name": "Storage"},
+      {"name": "Token Swap"},
+    ]
+
     return (
-      <div className="App">
-        <div className="loader-container">
-          <div className="spinner"></div>
-        </div>
-      </div>
+      buttonList.map((data, index) => {
+        return <Button 
+          variant="outline-primary" 
+          className='app-button mr-1 mt-1' 
+          key={index}
+        >{data.name}
+        </Button>
+      })
     )
   }
 
   return (
     <div className="App">
+      {
+        loading &&
+          <div className="loader-container">
+            <div className="spinner"></div>
+          </div>
+      }
+      
       <ThemeProvider
         breakpoints={['xxxl', 'xxl', 'xl', 'lg', 'md', 'sm', 'xs', 'xxs']}
         minBreakpoint="xxs"
@@ -56,21 +84,12 @@ function App() {
         <Container>
           <Row>
             <Col>
-              <h1 className="header-h1">Top Blockchain Dapps</h1>
+              <h1 className="header-h1">Solidity Contract</h1>
             </Col>
           </Row>
           <Row>
             <Col className='text-align-left'>
-              <Button variant="primary" className='app-button'>All</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>ETH</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>EOS</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>TRON</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>ONT</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>ThunderCore</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>VeChain</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>Wax</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>Steem</Button>{' '}
-              <Button variant="outline-primary" className='app-button'>Hive</Button>{''}                    
+              <ContractButtonList />
             </Col>            
           </Row>
           <Row className='mt-5'>
@@ -87,7 +106,7 @@ function App() {
           </Row>  
         </Container> 
 
-        { navContent === 1 ? <Deployer showHideLoader={showHideLoader} /> : <Explorer /> }       
+        { navContent === 1 ? <Deployer showHideLoader={showHideLoader} /> : <Explorer showHideLoader={showHideLoader}/> }       
         
       </ThemeProvider>
     </div>

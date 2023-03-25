@@ -138,6 +138,7 @@ html body {
   position: fixed;
   background: rgba(0, 0, 0, 0.834);
   z-index: 1;
+  backdrop-filter: blur(2px);
 }
 
 .spinner {
@@ -156,4 +157,8 @@ html body {
   100% {
       transform: rotate(360deg);
   }
+}
+
+.bg-dark-blue {
+  background-color: #000d26 !important;
 }
