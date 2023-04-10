@@ -2,6 +2,7 @@ import './App.css';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Nav from 'react-bootstrap/Nav';
+import Audit from './components/Audit';
 import React, { useState } from 'react';
 import Button from 'react-bootstrap/Button';
 import Navbar from 'react-bootstrap/Navbar';
@@ -16,6 +17,7 @@ import { faBitcoinSign } from '@fortawesome/free-solid-svg-icons';
 function App() {
   const [loading, setLoading] = useState(false);
   const [navContent, setNavContent] = useState(1); 
+  const [solContractCode, setSolContractCode] = useState(''); 
 
   const showDeployer = () => {
     setNavContent(1)
@@ -23,27 +25,30 @@ function App() {
   const showExplorer = () => {
     setNavContent(2)
   }
+  const showAudit = () => {
+    setNavContent(3)
+  }
   const showHideLoader = (value) => {
     setLoading(value)
   }
 
   const ContractButtonList = () => {
     let buttonList = [
-      {"name": "Bridge"},
-      {"name": "ERC20" },
-      {"name": "ERC721"},
-      {"name": "ERC1155"},
-      {"name": "Game NFTs"},
-      {"name": "Metaverse Land_NFTs"},
-      {"name": "NFT Auction"},
-      {"name": "NFT Borrowing"},
-      {"name": "NFT Flashloan"},
-      {"name": "NFT Leanding"},
-      {"name": "NFT Loan"},
-      {"name": "NFT Storage"},
-      {"name": "NFT Marketplace"},
-      {"name": "Storage"},
-      {"name": "Token Swap"},
+      {"name": "Bridge", "fileName": 'Bridge.sol'},
+      {"name": "ERC20", "fileName": 'ERC20.sol'},
+      {"name": "ERC721", "fileName": 'ERC721.sol'},
+      {"name": "ERC1155", "fileName": 'ERC1155.sol'},
+      {"name": "Game NFTs", "fileName": 'Game_NFTs.sol'},
+      {"name": "Metaverse Land_NFTs", "fileName": 'Metaverse_Land_NFTs.sol'},
+      {"name": "NFT Auction", "fileName": 'NFT_Auction.sol'},
+      {"name": "NFT Borrowing", "fileName": 'NFT_Borrowing.sol'},
+      {"name": "NFT Flashloan", "fileName": 'NFT_Flashloan.sol'},
+      {"name": "NFT Leanding", "fileName": 'NFT_Leanding.sol'},
+      {"name": "NFT Loan", "fileName": 'NFT_Loan.sol'},
+      {"name": "NFT Storage", "fileName": 'NFT_Storage.sol'},
+      {"name": "NFT Marketplace", "fileName": 'NFTMarketplace.sol'},
+      {"name": "Storage", "fileName": 'Storage.sol'},
+      {"name": "Token Swap", "fileName": 'Token_Swap.sol'},
     ]
 
     return (
@@ -52,10 +57,20 @@ function App() {
           variant="outline-primary" 
           className='app-button mr-1 mt-1' 
           key={index}
+          onClick={() => solidityCompiler(data.fileName)}
         >{data.name}
         </Button>
       })
     )
+  }
+
+  async function solidityCompiler(fileName) {    
+    const module = await import("./contracts/" + fileName);
+    fetch(module.default)
+    .then(row => row.text())
+    .then(text => {
+      setSolContractCode(text)
+    })
   }
 
   return (
@@ -101,13 +116,23 @@ function App() {
                 <Nav.Item onClick={showExplorer}>
                   <Nav.Link eventKey="link-1" className='fw-700'>Explorer</Nav.Link>
                 </Nav.Item>
+                <Nav.Item onClick={showAudit}>
+                  <Nav.Link eventKey="link-2" className='fw-700'>Audit</Nav.Link>
+                </Nav.Item>
               </Nav>
             </Col>
           </Row>  
-        </Container> 
+        </Container>
 
-        { navContent === 1 ? <Deployer showHideLoader={showHideLoader} /> : <Explorer showHideLoader={showHideLoader}/> }       
-        
+        { navContent === 3  
+          ? 
+            <Audit showHideLoader={showHideLoader} /> 
+          : navContent === 2 
+            ? 
+              <Explorer showHideLoader={showHideLoader}/> 
+            : 
+              <Deployer showHideLoader={showHideLoader} solContractCode={solContractCode} setSolContractCode={setSolContractCode}/>
+        }        
       </ThemeProvider>
     </div>
   )

@@ -8,14 +8,14 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Container, Row, Col, Form, Button} from 'react-bootstrap';
 
 export default function Deployer(props) {
-    const {showHideLoader} = props;
+    const {showHideLoader, solContractCode, setSolContractCode} = props;
     const [question, setQuestion] = useState('');
     const [solidityCode, setSolidityCode] = useState('');
     const [solidityAbi, setSolidityAbi] = useState('');
     const [solidityBytecode, setSolidityBytecode] = useState('');
     const [walletAddress, setWalletAddress] = useState('');
 
-    const onSearch = () => { 
+    const onSearch = () => {         
         if(!question) {
             Swal.fire({
                 icon: 'error',
@@ -27,6 +27,7 @@ export default function Deployer(props) {
             return false
         }
 
+        setSolContractCode('')
         showHideLoader(true)
 
         axios.get(`https://abi-test.onrender.com/compile?code=`+question).then((result) => {
@@ -42,8 +43,7 @@ export default function Deployer(props) {
                     setSolidityAbi(response.compile_data.contracts[value].Storage.abi)
                     setSolidityBytecode(response.compile_data.contracts[value].Storage.evm.bytecode.object)
                 }
-
-
+                
                 setSolidityCode(response.code)  
                 showHideLoader(false)
             }
@@ -101,8 +101,6 @@ export default function Deployer(props) {
     }
 
     async function storeContract(obj) {
-        console.log('obj', obj)
-
         let web3AccessToken = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJkaWQ6ZXRocjoweDRFN0VENEIxYjYyMUY1RTU5QThlNEQxODk3RDE5NjdGRThGOUFlNmUiLCJpc3MiOiJ3ZWIzLXN0b3JhZ2UiLCJpYXQiOjE2NzY3MDY4MjAxMzYsIm5hbWUiOiJtYW5pIn0.kxOPF3kxqW4B7JTkAGbhtduw2TER7iJWwTQ8TLYmB7E'
 
         const blob = new Blob([JSON.stringify(obj)], { type: "application/json" });       
@@ -137,6 +135,23 @@ export default function Deployer(props) {
 
                 <FontAwesomeIcon icon={ faSearch } className='text-white pointer' onClick={() => onSearch()}/>
             </div>
+
+            {solContractCode && !solidityCode ?
+                <Container className='mt-3'>
+                    <Row>
+                        <Col md={{ span: 6, offset: 3 }}>
+                            <Form.Control
+                                as="textarea"
+                                className='bg-dark-blue text-white mb-5'
+                                style={{ height: '550px' }}
+                                value={solContractCode}
+                                disabled
+                            />
+                        </Col>
+                    </Row>
+                </Container>
+                : ''
+            }
 
             {solidityCode &&
             <Container className='mt-3'>

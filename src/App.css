@@ -1,3 +1,24 @@
+/* width */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1; 
+}
+ 
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888; 
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555; 
+}
+
+
 .App {
   text-align: center;
 }
@@ -161,4 +182,8 @@ html body {
 
 .bg-dark-blue {
   background-color: #000d26 !important;
+}
+
+.text-area-padding {
+  padding: 2rem 2rem !important;
 }
