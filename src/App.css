@@ -118,6 +118,10 @@ html body {
   margin-right: 0.5rem;
 }
 
+.mr-3 {
+  margin-right: 1rem;
+}
+
 .nav-link:not(.active) {
   color: #fff !important;
 }
@@ -185,5 +189,10 @@ html body {
 }
 
 .text-area-padding {
+  padding: 2rem 2rem !important;
+}
+
+.text-area-height {
+  height: 500px;
   padding: 2rem 2rem !important;
 }

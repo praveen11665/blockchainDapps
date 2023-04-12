@@ -81,11 +81,10 @@ export default function Explorer(props) {
             {solidityCode &&
             <Container className='mt-3'>
                 <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
+                    <Col md={{ span: 12, offset: 12 }}>
                         <Form.Control
                             as="textarea"
-                            className='bg-dark-blue text-white'
-                            style={{ height: '550px' }}
+                            className='bg-dark-blue text-white text-area-height'
                             value={solidityCode}
                             disabled
                         />

@@ -128,9 +128,10 @@ export default function Deployer(props) {
                 <input 
                     className="searchbar" 
                     type="text" 
-                    placeholder='Please enter your solidity contract.' 
+                    placeholder='Please enter your solidity contract here...' 
                     onChange={(e) => setQuestion(e.target.value)}
                     value={question}
+                    style={{ height: '8rem' }}
                 />
 
                 <FontAwesomeIcon icon={ faSearch } className='text-white pointer' onClick={() => onSearch()}/>
@@ -139,11 +140,10 @@ export default function Deployer(props) {
             {solContractCode && !solidityCode ?
                 <Container className='mt-3'>
                     <Row>
-                        <Col md={{ span: 6, offset: 3 }}>
+                        <Col md={{ span: 12, offset: 12 }}>
                             <Form.Control
                                 as="textarea"
-                                className='bg-dark-blue text-white mb-5'
-                                style={{ height: '550px' }}
+                                className='bg-dark-blue text-white mb-5 text-area-height'
                                 value={solContractCode}
                                 disabled
                             />
@@ -156,11 +156,10 @@ export default function Deployer(props) {
             {solidityCode &&
             <Container className='mt-3'>
                 <Row>
-                    <Col md={{ span: 6, offset: 3 }}>
+                    <Col md={{ span: 12, offset: 12 }}>
                         <Form.Control
                             as="textarea"
-                            className='bg-dark-blue text-white'
-                            style={{ height: '550px' }}
+                            className='bg-dark-blue text-white text-area-height'
                             value={solidityCode}
                             disabled
                         />

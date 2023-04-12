@@ -55,7 +55,7 @@ function App() {
       buttonList.map((data, index) => {
         return <Button 
           variant="outline-primary" 
-          className='app-button mr-1 mt-1' 
+          className='app-button mr-3 mt-2' 
           key={index}
           onClick={() => solidityCompiler(data.fileName)}
         >{data.name}

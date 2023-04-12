@@ -76,8 +76,7 @@ export default function Explorer(props) {
                     <Col md={{ span: 12, offset: 12 }}>
                         <Form.Control
                             as="textarea"
-                            className='bg-dark-blue text-white text-area-padding'
-                            style={{ height: '500px' }}
+                            className='bg-dark-blue text-white text-area-height'
                             value={auditReport}
                             disabled
                         />
@@ -85,12 +84,12 @@ export default function Explorer(props) {
                 </Row> 
                 <Row>
                     <Col>
-                    <Button 
-                        variant="outline-primary" 
-                        className='app-button mr-1 mt-3 mb-3' 
-                        onClick={clearAuditReport} 
-                        >Clear Report
-                    </Button>
+                        <Button 
+                            variant="outline-primary" 
+                            className='app-button mr-1 mt-3 mb-3' 
+                            onClick={clearAuditReport} 
+                            >Clear Report
+                        </Button>
                     </Col>
                 </Row>               
             </Container>}
